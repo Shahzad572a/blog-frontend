@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-
+import { BASE_URL } from '../constants';
 const CreatePostPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -63,7 +63,7 @@ const CreatePostPage = () => {
         throw new Error('User not logged in or token missing');
       }
   
-      const response = await axios.post('http://localhost:5000/api/blogs', formData, {
+      const response = await axios.post(`${BASE_URL}/api/blogs`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link ,useNavigate} from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import toast CSS
-
+import { BASE_URL } from '../constants';
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/', {
+      const response = await fetch(`${BASE_URL}/api/users/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

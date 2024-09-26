@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { BASE_URL } from '../constants';
 const EditPostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,14 +17,14 @@ const EditPostPage = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/blogs/${id}`);
+        const response = await fetch(`${BASE_URL}/api/blogs/${id}`);
         if (!response.ok) throw new Error('Failed to fetch blog post');
         const post = await response.json();
         setTitle(post.title);
         setDescription(post.description);
         setCategory(post.category);
         setTags(post.tags.join(','));
-        setExistingImage(`http://localhost:5000${post.image}`);
+        setExistingImage(`${BASE_URL}${post.image}`);
       } catch (error) {
         console.error('Error fetching post:', error);
       }
@@ -59,7 +59,7 @@ const EditPostPage = () => {
 
     try {
       const token = localStorage.getItem('userInfo');
-      const response = await fetch(`http://localhost:5000/api/blogs/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/blogs/${id}`, {
         
         headers: {
           Authorization: `Bearer ${token}`,

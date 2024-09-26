@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importing the icons
-
+import { BASE_URL } from '../constants';
 const PostAction = () => {
   const [blogs, setBlogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,7 +13,7 @@ const PostAction = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/myblogs', {
+        const response = await fetch(`${BASE_URL}/api/myblogs`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const PostAction = () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
         const token = localStorage.getItem('userInfo');
-        const response = await fetch(`http://localhost:5000/api/blogs/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/blogs/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -90,7 +90,7 @@ const PostAction = () => {
                 <td className="py-2 px-4 border-b">
                   <Link to={`/post/${blog._id}`}>
                     <img
-                      src={`http://localhost:5000${blog.image}`}
+                      src={`${BASE_URL}${blog.image}`}
                       alt={blog.title}
                       className="w-16 h-16 object-cover"
                     />

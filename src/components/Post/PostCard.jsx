@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import { BASE_URL } from '../../constants';
 const limitWords = (text, wordCount) => {
   if (!text) return '';
   const words = text.split(' ');
@@ -15,7 +15,7 @@ const PostCard = ({ post }) => {
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <Link to={`/post/${post._id}`}>
         <img
-          src={`http://localhost:5000${post.image}`}
+          src={`${BASE_URL}${post.image}`}
           alt={post.title}
           className="w-full h-64 object-cover mb-4 rounded-lg"
         />

@@ -1,12 +1,12 @@
 // PostDetailPage.jsx
 import React from 'react';
 import CommentSection from '../Comment/CommentSection'; // Import the new CommentSection component
-
+import { BASE_URL } from '../../constants';
 const PostDetailPage = ({ post, comments, setComments }) => {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-20">
       <img 
-          src={`http://localhost:5000${post.image}`}
+          src={`${BASE_URL}${post.image}`}
           alt={post.title}
         className="w-full h-60 object-cover rounded-t-lg"
       />

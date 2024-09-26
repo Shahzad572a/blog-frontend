@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PostDetailPage from '../components/Post/PostDetailPage';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams
-
+import { BASE_URL } from '../constants';
 const PostDetailContainer = () => {
   const { id } = useParams(); // Use useParams to get the id from the URL 
   const [post, setPost] = useState(null);
@@ -13,7 +13,7 @@ const PostDetailContainer = () => {
   useEffect(() => {
     const fetchPostById = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/blogs/${id}`);
+        const response = await axios.get(`${BASE_URL}/api/blogs/${id}`);
         setPost(response.data);
       } catch (error) {
         console.error('Error fetching the post:', error);

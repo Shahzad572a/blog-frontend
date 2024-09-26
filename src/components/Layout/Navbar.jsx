@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { BASE_URL } from '../../constants';
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -10,7 +10,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     // Call the logout API to clear the cookie
     try {
-      const response = await fetch('http://localhost:5000/api/users/logout', {
+      const response = await fetch(`${BASE_URL}/api/users/logout`, {
         method: 'POST',
         credentials: 'include', // Required to send and receive cookies
       });

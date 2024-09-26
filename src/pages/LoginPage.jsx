@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';  
-
+import { BASE_URL } from '../constants';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,7 +12,7 @@ const LoginPage = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:5000/api/users/auth', {
+      const response = await fetch(`${BASE_URL}/api/users/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

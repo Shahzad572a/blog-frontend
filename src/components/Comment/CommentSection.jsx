@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
-
+import { BASE_URL } from '../../constants';
 const CommentSection = ({ comments, setComments, blogId }) => {
   const [newComment, setNewComment] = useState('');
   const [editingIndex, setEditingIndex] = useState(null);
@@ -13,7 +13,7 @@ const CommentSection = ({ comments, setComments, blogId }) => {
     e.preventDefault();
     if (newComment.trim()) {
       try {
-        const response = await axios.post(`http://localhost:5000/api/blogs/${blogId}/comments`, {
+        const response = await axios.post(`${BASE_URL}/api/blogs/${blogId}/comments`, {
           text: newComment,
         }, {
           headers: {
@@ -37,7 +37,7 @@ const CommentSection = ({ comments, setComments, blogId }) => {
     e.preventDefault();
     if (editingComment.trim()) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/blogs/${blogId}/comments/${commentId}`, {
+        const response = await axios.put(`${BASE_URL}/api/blogs/${blogId}/comments/${commentId}`, {
           text: editingComment,
         }, {
           headers: {
@@ -56,7 +56,7 @@ const CommentSection = ({ comments, setComments, blogId }) => {
   const handleDeleteComment = async (commentId) => {
     console.log('Attempting to delete comment:', commentId, 'from blog:', blogId);
     try {
-      const response = await axios.delete(`http://localhost:5000/api/blogs/${blogId}/comments/${commentId}`, {
+      const response = await axios.delete(`${BASE_URL}/api/blogs/${blogId}/comments/${commentId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('userInfo')}`,
         },

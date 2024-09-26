@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PostCard from '../components/Post/PostCard';
-
+import { BASE_URL } from '../constants';
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ const HomePage = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/blogs');
+        const response = await axios.get(`${BASE_URL}/api/blogs`);
         setPosts(response.data); // Store fetched blog posts in state
       } catch (error) {
         console.error('Error fetching posts:', error);
