@@ -90,7 +90,7 @@ const PostAction = () => {
                 <td className="py-2 px-4 border-b">
                   <Link to={`/post/${blog._id}`}>
                     <img
-                      src={`${BASE_URL}${blog.image}`}
+                      src={`${BASE_URL}/${blog.image}`}
                       alt={blog.title}
                       className="w-16 h-16 object-cover"
                     />

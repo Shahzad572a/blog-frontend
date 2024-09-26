@@ -15,7 +15,7 @@ const PostCard = ({ post }) => {
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <Link to={`/post/${post._id}`}>
         <img
-          src={`${BASE_URL}${post.image}`}
+          src={`${BASE_URL}/${post.image}`}
           alt={post.title}
           className="w-full h-64 object-cover mb-4 rounded-lg"
         />
