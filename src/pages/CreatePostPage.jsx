@@ -16,8 +16,16 @@ const CreatePostPage = () => {
   const navigate = useNavigate(); // Hook for navigation
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Set base64 string
+      };
+      reader.readAsDataURL(file);
+    }
   };
+  
 
   const validateTags = (tags) => {
     const tagArray = tags.split(',').map(tag => tag.trim());

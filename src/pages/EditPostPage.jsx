@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BASE_URL } from '../constants';
+
 const EditPostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const EditPostPage = () => {
         setDescription(post.description);
         setCategory(post.category);
         setTags(post.tags.join(','));
-        setExistingImage(`${BASE_URL}${post.image}`);
+        setExistingImage(post.image.url); // Set existing image URL
       } catch (error) {
         console.error('Error fetching post:', error);
       }
@@ -32,14 +33,18 @@ const EditPostPage = () => {
     fetchPost();
   }, [id]);
 
-  const handleImageChange = (e) => setImage(e.target.files[0]);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file); // Store the file object
+    }
+  };
 
   const validateFields = () => {
     const newErrors = {};
     if (!title) newErrors.title = 'Title is required!';
     if (!description) newErrors.description = 'Description is required!';
     if (!category) newErrors.category = 'Category is required!';
-    if (!image) newErrors.image = 'Image is required!';
     return newErrors;
   };
 
@@ -47,30 +52,29 @@ const EditPostPage = () => {
     e.preventDefault();
     const validationErrors = validateFields();
     setErrors(validationErrors);
-
+  
     if (Object.keys(validationErrors).length > 0) return;
-
+  
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
     formData.append('category', category);
     formData.append('tags', tags);
-    formData.append('image', image);
-
+    if (image) formData.append('image', image); // Append new image only
+  
     try {
       const token = localStorage.getItem('userInfo');
       const response = await fetch(`${BASE_URL}/api/blogs/${id}`, {
-        
         headers: {
           Authorization: `Bearer ${token}`,
         },
         method: 'PUT',
         body: formData,
       });
+  
       if (!response.ok) throw new Error('Failed to update blog post');
-
+  
       const updatedPost = await response.json();
-      console.log('Blog post updated:', updatedPost);
       toast.success('Blog post updated successfully!');
       setTimeout(() => navigate('/'), 3000);
     } catch (error) {
@@ -150,10 +154,9 @@ const EditPostPage = () => {
               type="file"
               id="image"
               accept="image/*"
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.image ? 'border-red-500' : ''}`}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               onChange={handleImageChange}
             />
-            {errors.image && <p className="text-red-500 text-xs mt-1">{errors.image}</p>}
             {existingImage && (
               <div className="mt-4">
                 <h3 className="text-sm font-bold">Current Image:</h3>

@@ -6,7 +6,7 @@ const PostDetailPage = ({ post, comments, setComments }) => {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-20">
       <img 
-          src={`${BASE_URL}/${post.image}`}
+          src={post.image.url}
           alt={post.title}
         className="w-full h-60 object-cover rounded-t-lg"
       />
